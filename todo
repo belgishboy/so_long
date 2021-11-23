@@ -1,0 +1,6 @@
+map checking
+	read everything and put into 2d array 
+	check the top is only 1
+	count nbr of P
+	count nbr of C
+	count nbr of E
