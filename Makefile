@@ -1,33 +1,30 @@
-SOURCES	= so_long.c check_map.c
+NAME = so_long
 
-OBJECTS	= $(SOURCES:.c=.o)
-CC		= gcc
-FLAGS	= -Wall -Werror -Wextra
-INCLUDES = ./
+SRC =	so_long.c	\
+		check_map.c	\
+		draw_map.c	\
 
-NAME	= so_long.a
-LIBFTM	= libft
-LIBFT	= ${LIBFTM}/libft.a
+CC = gcc
+
+OBJ = $(SRC:.c=.o)
 
 all:	$(NAME)
 
-$(NAME): $(SOURCES)
-	$(MAKE) $(LIBFT)
-	gcc $(FLAGS) -I$(INCLUDES) -c $(SOURCES) 
-	ar rc $(NAME) $(OBJECTS)
-	ranlib $(NAME)
-	gcc $(FLAGS) $(LIBFT) so_long.c so_long.a -o so_long
-	$(MAKE) clean
+$(NAME): $(OBJ)
+	make -C libft/
+	make -C mlx/
+	$(CC) $(OBJ) mlx/libmlx.a libft/libft.a -L /usr/X11/lib -lXext -lX11 -g -o $(NAME)
 
-$(LIBFT) :
-	cd $(LIBFTM) && $(MAKE)
+%.o: %.c
+	$(CC) -Wall -Wextra -Werror -Imlx -c $< -o $@
 
 clean:
-	rm -rf $(OBJECTS)
+	rm -f *.o
+	make clean -C mlx/
+	make clean -C libft/
 
 fclean: clean
-	rm -rf $(NAME)
-	cd $(LIBFTM) && $(MAKE) fclean
+	rm -f so_long
 
 re: fclean all
 

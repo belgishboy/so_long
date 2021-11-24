@@ -6,7 +6,7 @@
 /*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 21:03:51 by vheymans          #+#    #+#             */
-/*   Updated: 2021/11/23 15:35:48 by vheymans         ###   ########.fr       */
+/*   Updated: 2021/11/24 11:24:35 by vheymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,24 @@ size_t	check_outside(char *line, int *good)
 	return (len);
 }
 
+char	**create_map_array(t_game *g)
+{
+	char	**map_a;
+	int		x;
+	t_list	*map_l;
+
+	map_a = ft_calloc(g->size, sizeof(char *));
+	x = 0;
+	map_l = g->map_l;
+	while (x < g->size)
+	{
+		map_a[x] = ft_substr(map_l->content, 0, ft_strlen(map_l->content));
+		x ++;
+		map_l = map_l->next;
+	}
+	return (map_a);
+}
+
 /*
 ** Main function
 */
@@ -71,7 +89,7 @@ int	check_map(t_game *g, int *good)
 	size_t	len;
 	t_list	*check;
 
-	check = g->map;
+	check = g->map_l;
 	count[0] = 0;
 	count[1] = 0;
 	count[2] = 0;
@@ -86,5 +104,7 @@ int	check_map(t_game *g, int *good)
 		*good = ft_error("Invalid count");
 	if (check_outside(check->content, good) != len)
 		*good = ft_error("Not a Rectangle");
+	g->count = count;
+	g->map = create_map_array(g);
 	return (1);
 }
