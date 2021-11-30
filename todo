@@ -4,3 +4,13 @@ map checking
 	count nbr of P
 	count nbr of C
 	count nbr of E
+
+	exit_game function
+	player moving
+	keyhooking
+	movement counter ...... every time you call draw, increase the movement
+
+	w = 119
+	a = 97
+	s = 115
+	d = 100

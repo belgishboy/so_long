@@ -3,6 +3,7 @@ NAME = so_long
 SRC =	so_long.c	\
 		check_map.c	\
 		draw_map.c	\
+		play.c		\
 
 CC = gcc
 
@@ -25,6 +26,7 @@ clean:
 
 fclean: clean
 	rm -f so_long
+	make fclean -C libft/
 
 re: fclean all
 

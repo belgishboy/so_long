@@ -6,14 +6,41 @@
 /*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 16:55:35 by vheymans          #+#    #+#             */
-/*   Updated: 2021/11/24 19:50:39 by vheymans         ###   ########.fr       */
+/*   Updated: 2021/11/26 16:28:29 by vheymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
 /*
-**Creates a 2d string array of the map
+**Function for cleanly exiting the game
+*/
+
+int	exit_game(t_game *g)// EVERYTHING NEEDS TO BE FREEED
+{
+	if (g)
+		ft_error("This is an exit");
+	return (1);
+}
+
+/*
+**Function that takes care of all the key hooking/moving
+*/
+
+int	key_hook(int key, t_game *g)
+{
+	printf("count before: %d\n", g->count[0]);
+	if (key == 65307)
+		exit_game(g);
+	else if (key == 119 || key == 115 || key == 100 || key == 97)
+		g->move += play_move(key, g);
+	else
+		printf("Please enter a vaild input\n");//MAY NEED CHANGING
+	return (1);
+}
+
+/*
+**Creates a 2d array and list from the 'fd' and then sends it all to get checked
 */
 
 int	create_map(t_game *g, char *file)
@@ -44,6 +71,10 @@ int	create_map(t_game *g, char *file)
 	return (good);
 }
 
+/*
+**sets up g, and initializes all of the images needed for the game
+*/
+
 int	initialize_game(t_game *g, char *address)
 {
 	g->move = 0;
@@ -56,10 +87,10 @@ int	initialize_game(t_game *g, char *address)
 	g->gold = mlx_xpm_file_to_image(g->mlx, "a/gold.xpm", &g->wdth, &g->wdth);
 	g->wall = mlx_xpm_file_to_image(g->mlx, "a/wall.xpm", &g->wdth, &g->wdth);
 	g->exit = mlx_xpm_file_to_image(g->mlx, "a/wall.xpm", &g->wdth, &g->wdth);
-	printf("mlx file to image\n");
 	if (create_map(g, address))
 	{
-		g->mlx_win = mlx_new_window(g->mlx, 1920, 1080, "so_long");// need to count the rows and cols
+		g->mlx_win = mlx_new_window(g->mlx, g->len * g->wdth,
+				g->size * g->wdth, "so_long");
 		draw_map(g);
 	}
 	else
@@ -74,6 +105,10 @@ int	main(int argc, char **argv)
 	if (argc != 2)
 		ft_error("Not correct Map input");
 	initialize_game(&g, argv[1]);
+	printf("count[%d][%d][%d]\n", g.count[0], g.count[1], g.count[2]);
+	mlx_key_hook(g.mlx_win, &key_hook, &g);
+	mlx_hook(g.mlx_win, 33, (1L << 17), exit_game, &g);
+	mlx_hook(g.mlx_win, 19, (1L << 4), draw_map, &g);
 	mlx_loop(g.mlx);
 	return (0);
 }

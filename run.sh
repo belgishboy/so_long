@@ -1,5 +1,5 @@
 #!/bin/bash
-make
+make re
 echo
 #echo
 #./so_long "./badmaps/bad_ber.txt"

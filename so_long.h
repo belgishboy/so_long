@@ -6,7 +6,7 @@
 /*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 16:46:56 by vheymans          #+#    #+#             */
-/*   Updated: 2021/11/24 18:23:06 by vheymans         ###   ########.fr       */
+/*   Updated: 2021/11/25 17:18:29 by vheymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,9 @@ typedef struct s_game
 	char	**map;
 	int		*count;
 	int		size;
+	int		len;
 	int		move;
+	int		*ppos;
 	int		wdth;
 	void	*floor;
 	void	*ply_l;
@@ -81,5 +83,6 @@ typedef struct s_game
 
 int		check_map(t_game *g, int *good);
 int		draw_map(t_game *g);
+int		play_move(int key, t_game *g);
 
 #endif

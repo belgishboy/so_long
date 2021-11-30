@@ -6,7 +6,7 @@
 /*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 21:03:51 by vheymans          #+#    #+#             */
-/*   Updated: 2021/11/24 11:24:35 by vheymans         ###   ########.fr       */
+/*   Updated: 2021/11/25 17:19:15 by vheymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,10 @@ char	**create_map_array(t_game *g)
 	int		x;
 	t_list	*map_l;
 
-	map_a = ft_calloc(g->size, sizeof(char *));
+	map_a = ft_calloc((g->size) + 1, sizeof(char *));
 	x = 0;
 	map_l = g->map_l;
+	g->len = ft_strlen(map_l->content);
 	while (x < g->size)
 	{
 		map_a[x] = ft_substr(map_l->content, 0, ft_strlen(map_l->content));
