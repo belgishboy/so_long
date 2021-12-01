@@ -6,7 +6,7 @@
 /*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 18:13:14 by vheymans          #+#    #+#             */
-/*   Updated: 2021/11/29 11:18:44 by vheymans         ###   ########.fr       */
+/*   Updated: 2021/12/01 20:46:07 by vheymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,31 +16,25 @@
 
 #include "so_long.h"
 
-int	what_draw(t_game *g, char c, int x, int y)
+int	what_draw(t_game *g, char c, int row, int col)
 {
-	int	p_pos[2];
-
-	x = x * g->wdth;
-	y = y * g->wdth;
+	row = row * g->wdth;
+	col = col * g->wdth;
 	if (c == '1')
-		mlx_put_image_to_window(g->mlx, g->mlx_win, g->wall, y, x);
+		mlx_put_image_to_window(g->mlx, g->mlx_win, g->wall, col, row);
 	else if (c == '0')
-		mlx_put_image_to_window(g->mlx, g->mlx_win, g->floor, y, x);
+		mlx_put_image_to_window(g->mlx, g->mlx_win, g->floor, col, row);
 	else if (c == 'P' || c == 'L' || c == 'R')
 	{
-		p_pos[0] = x / g->wdth;
-		p_pos[1] = y / g->wdth;
-		g->ppos = p_pos;
-		printf ("p_pos : [%d][%d]\n", p_pos[0], p_pos[1]);
 		if (c == 'P' || c == 'L')
-			mlx_put_image_to_window(g->mlx, g->mlx_win, g->ply_l, y, x);
+			mlx_put_image_to_window(g->mlx, g->mlx_win, g->ply_l, col, row);
 		if (c == 'R')
-			mlx_put_image_to_window(g->mlx, g->mlx_win, g->ply_r, y, x);
+			mlx_put_image_to_window(g->mlx, g->mlx_win, g->ply_r, col, row);
 	}
 	else if (c == 'C')
-		mlx_put_image_to_window(g->mlx, g->mlx_win, g->gold, y, x);
+		mlx_put_image_to_window(g->mlx, g->mlx_win, g->gold, col, row);
 	else if (c == 'E')
-		mlx_put_image_to_window(g->mlx, g->mlx_win, g->exit, y, x);
+		mlx_put_image_to_window(g->mlx, g->mlx_win, g->exit, col, row);
 	return (1);
 }
 
@@ -50,23 +44,28 @@ int	what_draw(t_game *g, char c, int x, int y)
 
 int	draw_map(t_game *g)
 {
-	int		x;
-	int		y;
+	int		row;
+	int		col;
 	char	**map;
+	char	c;
 
-	x = 0;
+	row = 0;
 	map = g->map;
-	while (map[x])
+	while (map[row])
 	{
-		y = 0;
-		while (map[x][y])
+		col = 0;
+		while (map[row][col])
 		{
-			printf("%c", map[x][y]);
-			what_draw(g, map[x][y], x, y);
-			y ++;
+			c = map[row][col];
+			if (c == 'P' || c == 'L' || c == 'R')
+			{
+				g->ppos[0] = row;
+				g->ppos[1] = col;
+			}
+			what_draw(g, map[row][col], row, col);
+			col ++;
 		}
-		printf("\n");
-		x ++;
+		row ++;
 	}
 	return (1);
 }

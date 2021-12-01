@@ -6,7 +6,7 @@
 /*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 16:46:56 by vheymans          #+#    #+#             */
-/*   Updated: 2021/11/25 17:18:29 by vheymans         ###   ########.fr       */
+/*   Updated: 2021/12/01 21:14:57 by vheymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 
 # include <fcntl.h> // open
 # include <unistd.h> // close, read, write,
-# include <stdlib.h> // malloc, free, exit
+# include <stdlib.h> // malloc, free, exit, printf
 # include <stdio.h> // perror
 # include <string.h> // strerror
 
@@ -54,11 +54,11 @@ typedef struct s_game
 	void	*mlx_win;
 	t_list	*map_l;
 	char	**map;
-	int		*count;
+	int		*count;// free at the end
 	int		size;
 	int		len;
 	int		move;
-	int		*ppos;
+	int		ppos[2];
 	int		wdth;
 	void	*floor;
 	void	*ply_l;
@@ -84,5 +84,6 @@ typedef struct s_game
 int		check_map(t_game *g, int *good);
 int		draw_map(t_game *g);
 int		play_move(int key, t_game *g);
+int		exit_game(t_game *g);
 
 #endif

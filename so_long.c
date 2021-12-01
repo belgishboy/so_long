@@ -6,7 +6,7 @@
 /*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 16:55:35 by vheymans          #+#    #+#             */
-/*   Updated: 2021/11/26 16:28:29 by vheymans         ###   ########.fr       */
+/*   Updated: 2021/12/01 21:15:31 by vheymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,25 @@
 
 int	exit_game(t_game *g)// EVERYTHING NEEDS TO BE FREEED
 {
-	if (g)
+	mlx_loop_end(g->mlx);
+	mlx_destroy_window(g->mlx, g->mlx_win);
+	free(g->count);
+	free(g->ppos);
+	free(g->wall);
+	free(g->floor);
+	free(g->ply_l);
+	free(g->ply_r);
+	free(g->gold);
+	free(g->exit);
+	ft_lstclear(&(g->map_l), del);
+	g->size --;
+	//while (g->size >= 0)
+	//	del(g->map[g->size --]);
+	free(g->map);
+	free(g->count);
+	if (!(g->end))
 		ft_error("This is an exit");
+	exit(0);
 	return (1);
 }
 
@@ -29,7 +46,6 @@ int	exit_game(t_game *g)// EVERYTHING NEEDS TO BE FREEED
 
 int	key_hook(int key, t_game *g)
 {
-	printf("count before: %d\n", g->count[0]);
 	if (key == 65307)
 		exit_game(g);
 	else if (key == 119 || key == 115 || key == 100 || key == 97)
@@ -86,7 +102,7 @@ int	initialize_game(t_game *g, char *address)
 	g->ply_r = mlx_xpm_file_to_image(g->mlx, "a/ply_l.xpm", &g->wdth, &g->wdth);
 	g->gold = mlx_xpm_file_to_image(g->mlx, "a/gold.xpm", &g->wdth, &g->wdth);
 	g->wall = mlx_xpm_file_to_image(g->mlx, "a/wall.xpm", &g->wdth, &g->wdth);
-	g->exit = mlx_xpm_file_to_image(g->mlx, "a/wall.xpm", &g->wdth, &g->wdth);
+	g->exit = mlx_xpm_file_to_image(g->mlx, "a/exit.xpm", &g->wdth, &g->wdth);
 	if (create_map(g, address))
 	{
 		g->mlx_win = mlx_new_window(g->mlx, g->len * g->wdth,
@@ -105,7 +121,6 @@ int	main(int argc, char **argv)
 	if (argc != 2)
 		ft_error("Not correct Map input");
 	initialize_game(&g, argv[1]);
-	printf("count[%d][%d][%d]\n", g.count[0], g.count[1], g.count[2]);
 	mlx_key_hook(g.mlx_win, &key_hook, &g);
 	mlx_hook(g.mlx_win, 33, (1L << 17), exit_game, &g);
 	mlx_hook(g.mlx_win, 19, (1L << 4), draw_map, &g);

@@ -6,7 +6,7 @@
 /*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 21:03:51 by vheymans          #+#    #+#             */
-/*   Updated: 2021/11/25 17:19:15 by vheymans         ###   ########.fr       */
+/*   Updated: 2021/12/01 20:33:30 by vheymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,14 +86,12 @@ char	**create_map_array(t_game *g)
 
 int	check_map(t_game *g, int *good)
 {
-	int		count[3];
+	int		*count;
 	size_t	len;
 	t_list	*check;
 
 	check = g->map_l;
-	count[0] = 0;
-	count[1] = 0;
-	count[2] = 0;
+	count = ft_calloc(3, sizeof(int));
 	len = check_outside(check->content, good);
 	check = check->next;
 	while (check->next != NULL && *good)
