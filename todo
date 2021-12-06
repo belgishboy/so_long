@@ -14,3 +14,5 @@ map checking
 	a = 97
 	s = 115
 	d = 100
+
+	if argc is greater than 2

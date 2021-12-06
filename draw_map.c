@@ -6,7 +6,7 @@
 /*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 18:13:14 by vheymans          #+#    #+#             */
-/*   Updated: 2021/12/01 20:46:07 by vheymans         ###   ########.fr       */
+/*   Updated: 2021/12/06 15:18:58 by vheymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,14 +58,14 @@ int	draw_map(t_game *g)
 		{
 			c = map[row][col];
 			if (c == 'P' || c == 'L' || c == 'R')
-			{
 				g->ppos[0] = row;
+			if (c == 'P' || c == 'L' || c == 'R')
 				g->ppos[1] = col;
-			}
 			what_draw(g, map[row][col], row, col);
 			col ++;
 		}
 		row ++;
 	}
+	mlx_string_put(g->mlx, g->mlx_win, 2, 2, 111, ft_itoa(g->count));// find a valid color
 	return (1);
 }

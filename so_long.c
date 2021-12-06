@@ -6,7 +6,7 @@
 /*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 16:55:35 by vheymans          #+#    #+#             */
-/*   Updated: 2021/12/01 21:15:31 by vheymans         ###   ########.fr       */
+/*   Updated: 2021/12/06 15:28:48 by vheymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,20 +20,20 @@ int	exit_game(t_game *g)// EVERYTHING NEEDS TO BE FREEED
 {
 	mlx_loop_end(g->mlx);
 	mlx_destroy_window(g->mlx, g->mlx_win);
-	free(g->count);
-	free(g->ppos);
-	free(g->wall);
-	free(g->floor);
-	free(g->ply_l);
-	free(g->ply_r);
-	free(g->gold);
-	free(g->exit);
-	ft_lstclear(&(g->map_l), del);
-	g->size --;
-	//while (g->size >= 0)
-	//	del(g->map[g->size --]);
-	free(g->map);
-	free(g->count);
+	// free(g->count);
+	// free(g->ppos);
+	// free(g->wall);
+	// free(g->floor);
+	// free(g->ply_l);
+	// free(g->ply_r);
+	// free(g->gold);
+	// free(g->exit);
+	// ft_lstclear(&(g->map_l), del);
+	// g->size --;
+	// //while (g->size >= 0)
+	// //	del(g->map[g->size --]);
+	// free(g->map);
+	// free(g->count);
 	if (!(g->end))
 		ft_error("This is an exit");
 	exit(0);
@@ -99,7 +99,7 @@ int	initialize_game(t_game *g, char *address)
 	g->mlx = mlx_init();
 	g->floor = mlx_xpm_file_to_image(g->mlx, "a/floor.xpm", &g->wdth, &g->wdth);
 	g->ply_l = mlx_xpm_file_to_image(g->mlx, "a/ply_l.xpm", &g->wdth, &g->wdth);
-	g->ply_r = mlx_xpm_file_to_image(g->mlx, "a/ply_l.xpm", &g->wdth, &g->wdth);
+	g->ply_r = mlx_xpm_file_to_image(g->mlx, "a/ply_l.xpm", &g->wdth, &g->wdth); // GET A RIGHT IMAGE
 	g->gold = mlx_xpm_file_to_image(g->mlx, "a/gold.xpm", &g->wdth, &g->wdth);
 	g->wall = mlx_xpm_file_to_image(g->mlx, "a/wall.xpm", &g->wdth, &g->wdth);
 	g->exit = mlx_xpm_file_to_image(g->mlx, "a/exit.xpm", &g->wdth, &g->wdth);

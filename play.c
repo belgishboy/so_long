@@ -6,7 +6,7 @@
 /*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 17:12:34 by vheymans          #+#    #+#             */
-/*   Updated: 2021/12/01 21:07:07 by vheymans         ###   ########.fr       */
+/*   Updated: 2021/12/06 15:27:15 by vheymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,9 @@
 
 int	check_move(int x, int y, t_game *g)
 {
-	char	**map;
-
-	map = g->map;
-	if (map[x][y] == '1')
+	if (g->map[x][y] == '1')
 		return (0);
-	if (map[x][y] == 'E')
+	if (g->map[x][y] == 'E')
 	{
 		if (g->count[0] != 0)
 			return (0);
@@ -37,11 +34,14 @@ int	check_move(int x, int y, t_game *g)
 			exit_game(g);
 		}
 	}
-	if (map[x][y] == 'C')
-	{
+	if (g->map[x][y] == 'C')
 		g->count[0] -= 1;
-	}
-	g->map[x][y] = 'P';
+	if (y < g->ppos[1])
+		g->map[x][y] = 'L';
+	else if (y > g->ppos[1])
+		g->map[x][y] = 'R';
+	else
+		g->map[x][y] = g->map[g->ppos[0]][g->ppos[1]];
 	g->map[g->ppos[0]][g->ppos[1]] = '0';
 	g->move ++;
 	return (1);
