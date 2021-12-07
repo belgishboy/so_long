@@ -6,7 +6,7 @@
 /*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 18:13:14 by vheymans          #+#    #+#             */
-/*   Updated: 2021/12/06 15:18:58 by vheymans         ###   ########.fr       */
+/*   Updated: 2021/12/06 15:46:50 by vheymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,6 @@ int	draw_map(t_game *g)
 		}
 		row ++;
 	}
-	mlx_string_put(g->mlx, g->mlx_win, 2, 2, 111, ft_itoa(g->count));// find a valid color
+	mlx_string_put(g->mlx, g->mlx_win, 2, 2, 111, ft_itoa(g->move));// find a valid color
 	return (1);
 }
