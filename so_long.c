@@ -6,7 +6,7 @@
 /*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 16:55:35 by vheymans          #+#    #+#             */
-/*   Updated: 2021/12/06 15:28:48 by vheymans         ###   ########.fr       */
+/*   Updated: 2021/12/11 16:26:20 by vheymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,20 +20,18 @@ int	exit_game(t_game *g)// EVERYTHING NEEDS TO BE FREEED
 {
 	mlx_loop_end(g->mlx);
 	mlx_destroy_window(g->mlx, g->mlx_win);
-	// free(g->count);
-	// free(g->ppos);
-	// free(g->wall);
-	// free(g->floor);
-	// free(g->ply_l);
-	// free(g->ply_r);
-	// free(g->gold);
-	// free(g->exit);
-	// ft_lstclear(&(g->map_l), del);
-	// g->size --;
-	// //while (g->size >= 0)
-	// //	del(g->map[g->size --]);
-	// free(g->map);
-	// free(g->count);
+	free(g->count);
+	free(g->wall);
+	free(g->floor);
+	free(g->ply_l);
+	free(g->ply_r);
+	free(g->gold);
+	free(g->exit);
+	ft_lstclear(&(g->map_l), del);
+	g->size --;
+	while (g->size >= 0)
+		del(g->map[g->size --]);
+	free(g->map);
 	if (!(g->end))
 		ft_error("This is an exit");
 	exit(0);
@@ -49,7 +47,7 @@ int	key_hook(int key, t_game *g)
 	if (key == 65307)
 		exit_game(g);
 	else if (key == 119 || key == 115 || key == 100 || key == 97)
-		g->move += play_move(key, g);
+		play_move(key, g);
 	else
 		printf("Please enter a vaild input\n");//MAY NEED CHANGING
 	return (1);
