@@ -6,7 +6,7 @@
 /*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 16:55:35 by vheymans          #+#    #+#             */
-/*   Updated: 2021/12/13 13:54:03 by vheymans         ###   ########.fr       */
+/*   Updated: 2021/12/13 17:50:50 by vheymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,6 @@ int	exit_game(t_game *g)
 	while (g->size >= 0)
 		del(g->map[g->size --]);
 	free(g->map);
-	if (!(g->end))
-		ft_error("This is an exit");
 	exit(0);
 	return (1);
 }

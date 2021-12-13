@@ -15,7 +15,6 @@ $(NAME): $(OBJ)
 	make -C libft/
 	make -C mlx/
 	$(CC) $(OBJ) mlx/libmlx.a libft/libft.a -L /usr/X11/lib -lXext -lX11 -g -o $(NAME)
-	$(MAKE) clean
 
 %.o: %.c
 	$(CC) -Wall -Wextra -Werror -Imlx -c $< -o $@
