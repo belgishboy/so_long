@@ -6,7 +6,7 @@
 /*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 16:55:35 by vheymans          #+#    #+#             */
-/*   Updated: 2021/12/11 16:26:20 by vheymans         ###   ########.fr       */
+/*   Updated: 2021/12/13 13:54:03 by vheymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 **Function for cleanly exiting the game
 */
 
-int	exit_game(t_game *g)// EVERYTHING NEEDS TO BE FREEED
+int	exit_game(t_game *g)
 {
 	mlx_loop_end(g->mlx);
 	mlx_destroy_window(g->mlx, g->mlx_win);
@@ -49,7 +49,7 @@ int	key_hook(int key, t_game *g)
 	else if (key == 119 || key == 115 || key == 100 || key == 97)
 		play_move(key, g);
 	else
-		printf("Please enter a vaild input\n");//MAY NEED CHANGING
+		printf("Please enter a vaild input\n");
 	return (1);
 }
 
@@ -97,7 +97,7 @@ int	initialize_game(t_game *g, char *address)
 	g->mlx = mlx_init();
 	g->floor = mlx_xpm_file_to_image(g->mlx, "a/floor.xpm", &g->wdth, &g->wdth);
 	g->ply_l = mlx_xpm_file_to_image(g->mlx, "a/ply_l.xpm", &g->wdth, &g->wdth);
-	g->ply_r = mlx_xpm_file_to_image(g->mlx, "a/ply_l.xpm", &g->wdth, &g->wdth); // GET A RIGHT IMAGE
+	g->ply_r = mlx_xpm_file_to_image(g->mlx, "a/ply_r.xpm", &g->wdth, &g->wdth);
 	g->gold = mlx_xpm_file_to_image(g->mlx, "a/gold.xpm", &g->wdth, &g->wdth);
 	g->wall = mlx_xpm_file_to_image(g->mlx, "a/wall.xpm", &g->wdth, &g->wdth);
 	g->exit = mlx_xpm_file_to_image(g->mlx, "a/exit.xpm", &g->wdth, &g->wdth);
